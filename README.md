@@ -74,7 +74,7 @@ sim_projection <- function(with_codirector = TRUE, n_years = 10L,
 Now we run 100 simulations of 10 years each, with and without a
 co-director and compare the total revenue to the university under each
 scenario. Simulations beyond 100 yielded similar conclusions with
-respect to total revenue.
+respect to total cumulative revenue.
 
 ``` r
 # no. simulations
@@ -100,7 +100,7 @@ plot_df |>
   scale_y_continuous(labels = scales::dollar) +
   scale_x_continuous(n.breaks = max(plot_df$year)) +
   guides(color = guide_legend(override.aes = list(size = 5, alpha = 1))) +
-  labs(title = "Revenue Comparison With/Without MS-ART Co-director",
+  labs(title = "Revenue Projections With/Without MS-ART Co-director",
        x = "Year", y = "Total Revenue") +
   NULL
 ```
@@ -134,9 +134,8 @@ data.frame(split_revenue) |>
   gather(key = "type") |>
   ggplot(aes(x = value, color = type)) +
   geom_density(aes(fill = type), alpha = 0.3, linewidth = 0.2) +
-  labs(
-    title = "Total Revenue Comparison With and Without a Co-director",
-    y = "Prob. Density", x = "Total Revenue (10yr)") +
+  labs(title = "PDFs of Total Revenue With/Without a Co-director",
+       y = "Prob. Density", x = "Total Revenue (10yr)") +
   scale_fill_manual(values = c("steelblue", "#00A499")) +
   scale_color_manual(values = c("steelblue", "#00A499")) +
   scale_x_continuous(labels = scales::dollar) +

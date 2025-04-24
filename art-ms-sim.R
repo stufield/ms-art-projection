@@ -74,11 +74,11 @@ plot_df <- outsim |>
 # Plot all traces
 plot_df |>
   ggplot(aes(x = year, y = revenue, group = simulation, color = type)) +
-    geom_line(alpha = 0.3) +
-    scale_color_manual(values = c("steelblue", "#00A499")) +
-    guides(color = guide_legend(override.aes = list(size = 5, alpha = 1))) +
-    labs(title = "Total Revenue Comparison With and Without a Co-director",
-         x = "Year", y = "Total Revenue")
+  geom_line(alpha = 0.3) +
+  scale_color_manual(values = c("steelblue", "#00A499")) +
+  guides(color = guide_legend(override.aes = list(size = 5, alpha = 1))) +
+  labs(title = "Revenue Projections With/Without MS-ART Co-director",
+       x = "Year", y = "Total Revenue")
 
 split_revenue <- tapply(outsim, outsim$type, `[`, x = ncol(outsim))
 means <- vapply(split_revenue, mean, 0.1)
@@ -88,9 +88,8 @@ data.frame(split_revenue) |>
   tidyr::gather(key = "type") |>
   ggplot(aes(x = value, color = type)) +
   geom_density(aes(fill = type), alpha = 0.3, linewidth = 0.2) +
-  labs(
-    title = "Total Revenue Comparison With and Without a Co-director",
-    y = "Prob. Density", x = "Total Revenue (10yr)") +
+  labs(title = "PDFs of Total Revenue With/Without MS-ART Co-director",
+       y = "Prob. Density", x = "Total Revenue (10yr)") +
   scale_fill_manual(values = c("steelblue", "#00A499")) +
   scale_color_manual(values = c("steelblue", "#00A499")) +
   scale_x_continuous(labels = scales::dollar) +
